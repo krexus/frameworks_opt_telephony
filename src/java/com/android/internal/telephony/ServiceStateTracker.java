@@ -2031,8 +2031,10 @@ public class ServiceStateTracker extends Handler {
              * agreements and MVNO's.
              */
             boolean roaming = (mGsmRoaming || mDataRoaming);
-            if (mGsmRoaming && !isOperatorConsideredRoaming(mNewSS) &&
-                    (isSameNamedOperators(mNewSS) || isOperatorConsideredNonRoaming(mNewSS))) {
+            boolean mvnoRoaming = Settings.System.getInt(mPhone.getContext().getContentResolver(),
+                    Settings.System.MVNO_ROAMING, 0) == 1;
+            if (mGsmRoaming && (mvnoRoaming || !isOperatorConsideredRoaming(mNewSS) &&
+                    (isSameNamedOperators(mNewSS) || isOperatorConsideredNonRoaming(mNewSS)))) {
                 roaming = false;
             }
 
