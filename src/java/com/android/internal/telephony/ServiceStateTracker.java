@@ -1987,8 +1987,8 @@ public class ServiceStateTracker extends Handler {
              */
             boolean roaming = (mGsmRoaming || mDataRoaming);
             boolean mvnoRoaming = Settings.System.getInt(mPhone.getContext().getContentResolver(),
-                    Settings.System.MVNO_ROAMING, 0) == 1;
-            if (mGsmRoaming && (mvnoRoaming || !isOperatorConsideredRoaming(mNewSS) &&
+                    Settings.System.MVNO_ROAMING, 1) == 1;
+            if (mGsmRoaming && (!mvnoRoaming || !isOperatorConsideredRoaming(mNewSS) &&
                     (isSameNamedOperators(mNewSS) || isOperatorConsideredNonRoaming(mNewSS)))) {
                 roaming = false;
             }
